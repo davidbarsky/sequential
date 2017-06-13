@@ -1,16 +1,12 @@
-module Lib.Parser where
+module Lib.Parser (
+    parseLogs
+  , Entry
+) where
 
-import Data.Attoparsec.Text
+import Data.Attoparsec.Text as AT
+import Control.Applicative
 import Lib.Prelude
 
-data IP =
-  IP Word8
-     Word8
-     Word8
-     Word8
-  deriving (Show)
-
--- either :ok or :invoke
 data RequestType
   = Ok
   | Invoke
@@ -26,31 +22,23 @@ data Operation
   deriving (Eq, Show)
 
 -- a jepsen log entry
-data LogEntry = LogEntry
+data Entry = Entry
   { process :: Double
   , requestType :: RequestType
   , operation :: Operation
-  , result :: Text
+  , response :: Text
   } deriving (Eq, Show)
 
--- type synonym of a list of log entries
-type Log = [LogEntry]
-
-logEntryParser :: Parser LogEntry
-logEntryParser = do
+parseLogs :: Parser Entry
+parseLogs = do
   _ <- string "INFO  jepsen.util - "
   id <- processIDParser
   _ <- space
   rt <- requestTypeParser
   _ <- space
   op <- operationParser
-  r <- resultParser
-  return $ LogEntry {process = id, requestType = rt, operation = op, result = r}
-
-printLogs :: IO ()
-printLogs = do
-  print $ parseOnly logEntryParser "INFO  jepsen.util - 0 :invoke :read nil"
-  print $ parseOnly logEntryParser "INFO  jepsen.util - 2 :invoke :cas [3 0]"
+  r <- responseParser
+  return $ Entry {process = id, requestType = rt, operation = op, response = r}
 
 processIDParser :: Parser Double
 processIDParser = do
@@ -59,17 +47,19 @@ processIDParser = do
 
 requestTypeParser :: Parser RequestType
 requestTypeParser =
-  (string ":ok" >> return Ok) <|> (string ":invoke" >> return Invoke) <|>
-  (string ":fail" >> return Failure) <|>
-  (string ":info" >> return Info)
+      (string ":ok" >> return Ok)
+  <|> (string ":invoke" >> return Invoke)
+  <|> (string ":fail" >> return Failure)
+  <|> (string ":info" >> return Info)
 
 operationParser :: Parser Operation
 operationParser =
-  (string ":read" >> return Read) <|> (string ":write" >> return Write) <|>
-  (string ":cas" >> return CompareAndSwap)
+      (string ":read" >> return Read)
+  <|> (string ":write" >> return Write)
+  <|> (string ":cas" >> return CompareAndSwap)
 
-resultParser :: Parser Text
-resultParser = do
+responseParser :: Parser Text
+responseParser = do
   _ <- space
-  r <- Data.Attoparsec.Text.takeTill (\c -> c == '}')
+  r <- AT.takeTill (\c -> c == '}')
   return r

@@ -16,16 +16,15 @@ cabal-version:       >=1.10
 library
   hs-source-dirs:      src
   ghc-options:         -Wall
-  exposed-modules:     Lib, Lib.Parser
+  exposed-modules:     Lib, Lib.Parser, Lib.FileReader
   other-modules:       Lib.Prelude
   build-depends:       base >= 4.7 && < 5
                      , protolude >= 0.1.6 && < 0.2
                      , attoparsec >=  0.13.1.0 && < 0.14
-                     , prettyprinter >= 1.0 && < 2.0
-                     , prettyprinter-ansi-terminal >= 1.0 && < 2.0
+                     , text >= 1.0 && < 2.0
                      , time >= 1.6 && < 2.0
   default-language:    Haskell2010
-  default-extensions:  OverloadedStrings, NoImplicitPrelude, DuplicateRecordFields
+  default-extensions:  OverloadedStrings, NoImplicitPrelude, DuplicateRecordFields, ScopedTypeVariables
 
 executable sequential-exe
   hs-source-dirs:      app
@@ -34,6 +33,7 @@ executable sequential-exe
   build-depends:       base
                      , sequential
                      , protolude >= 0.1.6 && < 0.2
+                     , attoparsec >=  0.13.1.0 && < 0.14
   default-language:    Haskell2010
   default-extensions:  OverloadedStrings, NoImplicitPrelude, DuplicateRecordFields
 
