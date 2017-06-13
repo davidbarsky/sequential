@@ -1,7 +1,4 @@
-module Lib.Parser (
-    parseLogs
-  , Entry
-) where
+module Lib.Parser where
 
 import Data.Attoparsec.Text as AT
 import Control.Applicative

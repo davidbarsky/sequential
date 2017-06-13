@@ -1,5 +1,5 @@
-module Lib 
-    ( module Lib.Parser
-    ) where
+module Lib
+  ( module Lib.Parser
+  ) where
 
 import Lib.Parser

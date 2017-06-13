@@ -1,55 +1,73 @@
-name:                sequential
-version:             0.1.0.0
--- synopsis:
--- description:
-homepage:            https://github.com/davidbarsky/sequential#readme
-license:             MIT
-license-file:        LICENSE
-author:              David Barsky
-maintainer:          me@davidbarsky.com
-copyright:           2017 David Barsky
-category:            Distribued Systems
-build-type:          Simple
-extra-source-files:  README.md
-cabal-version:       >=1.10
+-- This file has been generated from package.yaml by hpack version 0.17.0.
+--
+-- see: https://github.com/sol/hpack
 
-library
-  hs-source-dirs:      src
-  ghc-options:         -Wall
-  exposed-modules:     Lib, Lib.Parser, Lib.FileReader
-  other-modules:       Lib.Prelude
-  build-depends:       base >= 4.7 && < 5
-                     , protolude >= 0.1.6 && < 0.2
-                     , attoparsec >=  0.13.1.0 && < 0.14
-                     , text >= 1.0 && < 2.0
-                     , time >= 1.6 && < 2.0
-  default-language:    Haskell2010
-  default-extensions:  OverloadedStrings, NoImplicitPrelude, DuplicateRecordFields, ScopedTypeVariables
+name:           sequential
+version:        0.1.0.0
+category:       Distributed Systems
+homepage:       https://github.com/davidbarsky/sequential#readme
+bug-reports:    https://github.com/davidbarsky/sequential/issues
+author:         David Barsky
+maintainer:     me@davidbarsky.com
+copyright:      2017 David Barsky
+license:        MIT
+license-file:   LICENSE
+build-type:     Simple
+cabal-version:  >= 1.10
 
-executable sequential-exe
-  hs-source-dirs:      app
-  main-is:             Main.hs
-  ghc-options:         -Wall -threaded -rtsopts -with-rtsopts=-N
-  build-depends:       base
-                     , sequential
-                     , protolude >= 0.1.6 && < 0.2
-                     , attoparsec >=  0.13.1.0 && < 0.14
-  default-language:    Haskell2010
-  default-extensions:  OverloadedStrings, NoImplicitPrelude, DuplicateRecordFields
-
-test-suite sequential-test
-  type:                exitcode-stdio-1.0
-  hs-source-dirs:      test
-  main-is:             Spec.hs
-  build-depends:       base
-                     , sequential
-                     , protolude >= 0.1.6 && < 0.2
-                     , attoparsec >=  0.13.1.0 && < 0.14
-                     , hspec >= 2.4 && < 3.0
-  ghc-options:         -Wall -threaded -rtsopts -with-rtsopts=-N
-  default-language:    Haskell2010
-  default-extensions:  OverloadedStrings, NoImplicitPrelude, DuplicateRecordFields
+extra-source-files:
+    README.md
 
 source-repository head
-  type:     git
-  location: https://github.com/githubuser/sequential
+  type: git
+  location: https://github.com/davidbarsky/sequential
+
+library
+  hs-source-dirs:
+      src
+  default-extensions: OverloadedStrings NoImplicitPrelude DuplicateRecordFields ScopedTypeVariables
+  ghc-options: -Wall
+  build-depends:
+      protolude >=0.1.6 && <0.2
+    , attoparsec >=0.13.1.0 && <0.14
+    , base >=4.7 && <5
+    , text >=1.0 && <2.0
+    , time >=1.6 && <2.0
+  exposed-modules:
+      Lib
+      Lib.Parser
+      Lib.FileReader
+  other-modules:
+      Lib.Prelude
+      Print
+      Paths_sequential
+  default-language: Haskell2010
+
+executable sequential-exe
+  main-is: Main.hs
+  hs-source-dirs:
+      app
+  default-extensions: OverloadedStrings NoImplicitPrelude DuplicateRecordFields
+  ghc-options: -Wall -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      protolude >=0.1.6 && <0.2
+    , attoparsec >=0.13.1.0 && <0.14
+    , base
+    , sequential
+    , text >= 1.0 && <2.0
+  default-language: Haskell2010
+
+test-suite sequential-test
+  type: exitcode-stdio-1.0
+  main-is: Spec.hs
+  hs-source-dirs:
+      test
+  default-extensions: OverloadedStrings NoImplicitPrelude DuplicateRecordFields
+  ghc-options: -Wall -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      protolude >=0.1.6 && <0.2
+    , attoparsec >=0.13.1.0 && <0.14
+    , base
+    , sequential
+    , hspec >=2.4 && <3.0
+  default-language: Haskell2010
