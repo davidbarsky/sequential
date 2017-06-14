@@ -33,6 +33,7 @@ library
     , base >=4.7 && <5
     , text >=1.0 && <2.0
     , time >=1.6 && <2.0
+    , pretty-show >=1.6 && <2.0
   exposed-modules:
       Lib
       Lib.Parser
@@ -55,6 +56,7 @@ executable sequential-exe
     , base >=4.7 && <5
     , text >=1.0 && <2.0
     , time >=1.6 && <2.0
+    , pretty-show >=1.6 && <2.0
     , sequential
   default-language: Haskell2010
 
@@ -71,6 +73,7 @@ test-suite sequential-test
     , base >=4.7 && <5
     , text >=1.0 && <2.0
     , time >=1.6 && <2.0
+    , pretty-show >=1.6 && <2.0
     , sequential
     , hspec >=2.4 && <3.0
   default-language: Haskell2010
