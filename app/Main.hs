@@ -1,5 +1,3 @@
-{-# LANGUAGE ScopedTypeVariables #-}
-
 module Main where
 
 import Data.Attoparsec.Text as AT
@@ -11,8 +9,9 @@ import Data.Text (pack)
 main :: IO ()
 main = do
   lines :: [Text] <- FR.readLogContents (FR.logFile)
-  let entries = runParser lines
+  let entries :: [Entry] = runParser lines
   mapM_ print entries
+
 
 runParser :: [Text] -> [Entry]
 runParser lines = do

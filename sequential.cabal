@@ -47,14 +47,15 @@ executable sequential-exe
   main-is: Main.hs
   hs-source-dirs:
       app
-  default-extensions: OverloadedStrings NoImplicitPrelude DuplicateRecordFields
+  default-extensions: OverloadedStrings NoImplicitPrelude DuplicateRecordFields ScopedTypeVariables
   ghc-options: -Wall -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       protolude >=0.1.6 && <0.2
     , attoparsec >=0.13.1.0 && <0.14
-    , base
+    , base >=4.7 && <5
+    , text >=1.0 && <2.0
+    , time >=1.6 && <2.0
     , sequential
-    , text >= 1.0 && <2.0
   default-language: Haskell2010
 
 test-suite sequential-test
@@ -62,12 +63,14 @@ test-suite sequential-test
   main-is: Spec.hs
   hs-source-dirs:
       test
-  default-extensions: OverloadedStrings NoImplicitPrelude DuplicateRecordFields
+  default-extensions: OverloadedStrings NoImplicitPrelude DuplicateRecordFields ScopedTypeVariables
   ghc-options: -Wall -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       protolude >=0.1.6 && <0.2
     , attoparsec >=0.13.1.0 && <0.14
-    , base
+    , base >=4.7 && <5
+    , text >=1.0 && <2.0
+    , time >=1.6 && <2.0
     , sequential
     , hspec >=2.4 && <3.0
   default-language: Haskell2010

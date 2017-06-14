@@ -12,22 +12,20 @@ default-extensions:
 - OverloadedStrings
 - NoImplicitPrelude
 - DuplicateRecordFields
+- ScopedTypeVariables
 dependencies:
 - protolude >=0.1.6 && <0.2
 - attoparsec >=0.13.1.0 && <0.14
+- base >=4.7 && <5
+- text >=1.0 && <2.0
+- time >=1.6 && <2.0
 library:
   source-dirs: src
-  default-extensions:
-  - ScopedTypeVariables
   ghc-options: -Wall
   exposed-modules:
   - Lib
   - Lib.Parser
   - Lib.FileReader
-  dependencies:
-  - base >=4.7 && <5
-  - text >=1.0 && <2.0
-  - time >=1.6 && <2.0
 executables:
   sequential-exe:
     main: Main.hs
@@ -38,9 +36,7 @@ executables:
     - -rtsopts
     - -with-rtsopts=-N
     dependencies:
-    - base
     - sequential
-    - text >= 1.0 && <2.0
 tests:
   sequential-test:
     main: Spec.hs
@@ -51,6 +47,5 @@ tests:
     - -rtsopts
     - -with-rtsopts=-N
     dependencies:
-    - base
     - sequential
     - hspec >=2.4 && <3.0

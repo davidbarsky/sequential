@@ -1,16 +1,16 @@
-module Lib.FileReader(
-    logFile
+module Lib.FileReader
+  ( logFile
   , readLogContents
-) where
+  ) where
 
-import Lib.Prelude
-import Data.Text.IO as Text
 import Data.Text as Text
+import Data.Text.IO as Text
+import Protolude
 
 data Place
   = Ones
   | Tens
-  | Hundreds 
+  | Hundreds
   | OutOfScope
   deriving (Eq, Show)
 
