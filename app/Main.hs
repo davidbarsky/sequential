@@ -1,21 +1,20 @@
 module Main where
 
-import Data.Attoparsec.Text as AT
-import Lib.FileReader as FR
-import Lib.Parser as Parser
+import Data.Attoparsec.Text
+import Lib.FileReader (readContents, generateName)
+import Lib.Parser (parseLogs, Entry)
 import Protolude
 import Data.Text (pack)
 
 main :: IO ()
 main = do
-  lines :: [Text] <- FR.readLogContents (FR.logFile)
-  let entries :: [Entry] = runParser lines
+  lines <- readContents (generateName 1)
+  let entries = runParser lines
   mapM_ print entries
-
 
 runParser :: [Text] -> [Entry]
 runParser lines = do
-  res <- map (parseOnly Parser.parseLogs) lines
+  res <- map (parseOnly parseLogs) lines
   case res of
     Left err -> error ("Parse Failure at: " <> pack err)
     Right logs -> return logs

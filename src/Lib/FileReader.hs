@@ -1,23 +1,25 @@
 module Lib.FileReader
-  ( logFile
-  , readLogContents
+  ( readContents
+  , generateName
   ) where
 
-import Data.Text as Text
-import Data.Text.IO as Text
+import Data.Text (lines, unpack)
+import Data.Text.IO (readFile)
 import Protolude
 
-data Place
-  = Ones
-  | Tens
-  | Hundreds
-  | OutOfScope
-  deriving (Eq, Show)
 
-logFile :: FilePath
-logFile = "/Users/David/Developer/Haskell/sequential/test-data/etcd_000.log"
+generateName :: Int -> Text
+generateName n
+  | n < 10 = baseDir <> "etcd_00" <> show n <> ".log"
+  | n >= 10 && n < 100 = baseDir <> "etcd_0" <> show n <> ".log"
+  | otherwise = baseDir <> "etcd_" <> show n <> ".log"
 
-readLogContents :: FilePath -> IO [Text]
-readLogContents a = do
-  ls <- fmap Text.lines (Text.readFile a)
+
+baseDir :: Text
+baseDir = "/Users/David/Developer/Haskell/sequential/test-data/"
+
+
+readContents :: Text -> IO [Text]
+readContents a = do
+  ls <- fmap lines (readFile (unpack a))
   return ls
